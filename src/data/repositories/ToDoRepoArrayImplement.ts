@@ -7,7 +7,10 @@ const ToDoList = [
 ]
 
 export class ToDoRepoArrayImplement implements ToDoRepository {
-    GetToDo(): ToDo {
-        return {list: ToDoList}
+    GetToDo(): Array<ToDo> {
+        return [
+            {name: 'Exercise'},
+            {name: 'Work'}
+        ]
     }
 }

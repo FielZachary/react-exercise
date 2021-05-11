@@ -4,12 +4,12 @@ import { ToDo } from "../../../domain/entities/ToDo";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 interface CounterState {
-    toDo: ToDo
+    toDo: Array<ToDo>
 }
 
 // Define the initial state using that type
 const initialState: CounterState = {
-    toDo: {list: []},
+    toDo: [],
 }
 
 export const fetchToDoList = createAsyncThunk('toDoList/fetchToDoList', () => {
@@ -39,7 +39,7 @@ export const toDoSlice = createSlice({
         builder.addCase(addToDo.fulfilled, (state, action) => {
             return {
                 ...state,
-                toDo: {list: [...state.toDo.list, action.payload]}
+                toDo: [...state.toDo, {name: action.payload}]
             }
         })
     }

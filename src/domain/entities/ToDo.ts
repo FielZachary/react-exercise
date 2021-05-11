@@ -1,7 +1,7 @@
 export class ToDo {
-    list
+    name: string
 
-    constructor(list: []) {
-        this.list = list
+    constructor(name: string, id: number) {
+        this.name = name
     }
 }

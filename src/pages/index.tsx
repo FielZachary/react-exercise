@@ -32,8 +32,10 @@ export default function Home() {
           Refresh
         </button>
         <ul>
-          {toDo.list.map((todo) => (
-              <li>{todo}</li>
+          {toDo.map((todo) => (
+              <li>
+                  {todo.name}
+              </li>
           ))}
         </ul>
           <form onSubmit={handleSubmit}>
