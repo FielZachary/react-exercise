@@ -20,11 +20,9 @@ export class ToDoRepoArrayImplement implements ToDoRepository {
         return ToDoList
     }
     EditToDo(todo: ToDo): Array<ToDo> {
-        const todoId = ToDoList.findIndex((todoIndex) => {
-            return todoIndex.id === todo.id
-        })
-        // diri mo hang why?
-        ToDoList[todoId].title = todo.title
+        const oldTodos = ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
+        console.log(todo)
+        ToDoList = [...oldTodos, todo]
         return ToDoList
     }
 }

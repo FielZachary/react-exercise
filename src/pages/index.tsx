@@ -37,7 +37,7 @@ export default function Home() {
   }
   const handleEditSubmit = (e, todo) => {
       e.preventDefault()
-      const newToDo = {...todo, name: valueEdit}
+      const newToDo = {...todo, title: valueEdit}
       dispatch(editToDo(newToDo))
     }
   const handleEditForm = (todo) => {
@@ -60,7 +60,7 @@ export default function Home() {
         </button>
         <ul>
           {toDo.map((todo) => (
-              <li>
+              <li key={todo.id}>
                   {todo.title}
                   <button onClick={() => handleDelete(todo)} />
                   {handleEditForm(todo)}
