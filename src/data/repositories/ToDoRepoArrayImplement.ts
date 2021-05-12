@@ -20,19 +20,11 @@ export class ToDoRepoArrayImplement implements ToDoRepository {
         return ToDoList
     }
     EditToDo(todo: ToDo): Array<ToDo> {
-
-        let tempToDoList = ToDoList
-
-        console.log('i was called')
         const todoId = ToDoList.findIndex((todoIndex) => {
             return todoIndex.id === todo.id
         })
-        console.log('after loop')
-        console.log(todoId)
-        console.log(ToDoList[todoId].title)
-        tempToDoList[todoId].title = todo.title
-        console.log(ToDoList)
-
-        return tempToDoList
+        // diri mo hang why?
+        ToDoList[todoId].title = todo.title
+        return ToDoList
     }
 }
