@@ -1,7 +1,8 @@
 export class ToDo {
-    name: string
+    title: string
+    id: string
 
     constructor(name: string) {
-        this.name = name
+        this.title = name
     }
 }

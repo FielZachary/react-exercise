@@ -5,7 +5,10 @@ import {fetchProductList} from "../app/redux/product/product.slice";
 import {fetchUserList} from "../app/redux/user/user.slice";
 import {fetchToDoList} from "../app/redux/todo/todo.slice";
 import {addToDo} from "../app/redux/todo/todo.slice";
+import {deleteToDo} from "../app/redux/todo/todo.slice";
+import {editToDo} from "../app/redux/todo/todo.slice";
 import {useAppDispatch, useAppSelector} from "../app/redux/hooks";
+import {ToDo} from "../domain/entities/ToDo";
 
 export default function Home() {
   const products = useAppSelector((state) => state.products.products)
@@ -19,13 +22,37 @@ export default function Home() {
   }
   const handleSubmit = (e) => {
       e.preventDefault()
-      dispatch(addToDo(value))
+      dispatch(addToDo(new ToDo(valueAdd)))
   }
   const handleChange = (e) => {
-      value = e.target.value
-      console.log(value)
+      valueAdd = e.target.value
+      console.log(valueAdd)
   }
-  let value = ""
+  const handleDelete = (todo) => {
+    dispatch(deleteToDo(todo))
+  }
+  const handleEditChange = (e) => {
+      valueEdit = e.target.value
+      console.log(valueEdit)
+  }
+  const handleEditSubmit = (e, todo) => {
+      e.preventDefault()
+      const newToDo = {...todo, name: valueEdit}
+      dispatch(editToDo(newToDo))
+    }
+  const handleEditForm = (todo) => {
+      console.log('ht')
+      return (
+          <div>
+              <form onSubmit={(e) => handleEditSubmit(e, todo)}>
+                  <p>Edit a to do</p>
+                  <input type={'text'} onChange={handleEditChange}/>
+              </form>
+          </div>
+      )
+  }
+  let valueEdit = ""
+  let valueAdd = ""
   return (
       <div>
         <button onClick={handleClick} disabled={loading}>
@@ -34,7 +61,9 @@ export default function Home() {
         <ul>
           {toDo.map((todo) => (
               <li>
-                  {todo.name}
+                  {todo.title}
+                  <button onClick={() => handleDelete(todo)} />
+                  {handleEditForm(todo)}
               </li>
           ))}
         </ul>
