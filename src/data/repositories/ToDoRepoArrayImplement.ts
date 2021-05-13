@@ -2,9 +2,9 @@ import { ToDo } from "../../domain/entities/ToDo";
 import { ToDoRepository } from "../../domain/repositories/ToDoRepository";
 
 let ToDoList = [
-    {title: 'Exercise', id: 'a00370a1-6f20-4c12-9f5d-70ccab9166f1'},
-    {title: 'Work', id: 'ab2e5df1-cda3-45ed-9d84-61f91d70439d'},
-    {title: 'Play', id: '78ef886b-a7ec-4e8e-84c2-f5d050d026bf'}
+    {title: 'Exercise', id: 'a00370a1-6f20-4c12-9f5d-70ccab9166f1', isCompleted: false},
+    {title: 'Work', id: 'ab2e5df1-cda3-45ed-9d84-61f91d70439d', isCompleted: false},
+    {title: 'Play', id: '78ef886b-a7ec-4e8e-84c2-f5d050d026bf', isCompleted: false}
 ]
 
 export class ToDoRepoArrayImplement implements ToDoRepository {
@@ -23,6 +23,13 @@ export class ToDoRepoArrayImplement implements ToDoRepository {
         const oldTodos = ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
         console.log(todo)
         ToDoList = [...oldTodos, todo]
+        return ToDoList
+    }
+    MarkCompleted(todo: ToDo): Array<ToDo> {
+
+        const oldTodos = ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
+        ToDoList = [...oldTodos, todo]
+        console.log(ToDoList)
         return ToDoList
     }
 }

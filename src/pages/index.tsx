@@ -7,6 +7,7 @@ import {fetchToDoList} from "../app/redux/todo/todo.slice";
 import {addToDo} from "../app/redux/todo/todo.slice";
 import {deleteToDo} from "../app/redux/todo/todo.slice";
 import {editToDo} from "../app/redux/todo/todo.slice";
+import {markCompleted} from "../app/redux/todo/todo.slice";
 import {useAppDispatch, useAppSelector} from "../app/redux/hooks";
 import {ToDo} from "../domain/entities/ToDo";
 
@@ -51,6 +52,12 @@ export default function Home() {
           </div>
       )
   }
+  const handleComplete = (todo) => {
+
+      const newIsCompleted = !todo.isCompleted
+      const newToDo = {...todo, isCompleted: newIsCompleted}
+      dispatch(markCompleted(newToDo))
+  }
   let valueEdit = ""
   let valueAdd = ""
   return (
@@ -63,6 +70,7 @@ export default function Home() {
               <li key={todo.id}>
                   {todo.title}
                   <button onClick={() => handleDelete(todo)} />
+                  <button onClick={() => handleComplete(todo)} />
                   {handleEditForm(todo)}
               </li>
           ))}

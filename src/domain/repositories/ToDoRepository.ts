@@ -5,4 +5,5 @@ export interface ToDoRepository {
     AddToDo(todo : ToDo): Array<ToDo>
     DeleteToDo(todo : ToDo): Array<ToDo>
     EditToDo(todo : ToDo): Array<ToDo>
+    MarkCompleted(todo : ToDo): Array<ToDo>
 }

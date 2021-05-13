@@ -51,6 +51,16 @@ export const editToDo = createAsyncThunk(
     }
 )
 
+export const markCompleted = createAsyncThunk(
+    'toDoList/markCompleted',
+    (todo : ToDo) => {
+        const toDoRepo =  new ToDoRepoArrayImplement()
+        const toDoService = new ToDoServiceImpl(toDoRepo)
+        const markCompleted = toDoService.MarkCompleted(todo)
+        return markCompleted;
+    }
+)
+
 export const toDoSlice = createSlice({
     name: 'toDoList',
     initialState,
@@ -82,5 +92,13 @@ export const toDoSlice = createSlice({
                     toDo: action.payload
             }
         })
+        builder.addCase(markCompleted.fulfilled, (state, action) => {
+
+            return {
+                ...state,
+                    toDo: action.payload
+            }
+        })
+
     }
 })

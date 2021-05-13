@@ -30,13 +30,20 @@ export class ToDoServiceImpl {
     }
 
     DeleteToDo(todo : ToDo): Array<ToDo> {
-
-        return this.ToDoRepo.DeleteToDo(todo)
+        if (todo.isCompleted === false) {
+            return this.ToDoRepo.DeleteToDo(todo)
+        }
+        return this.ToDoRepo.GetToDo()
     }
 
     EditToDo(todo : ToDo): Array<ToDo> {
 
         return this.ToDoRepo.EditToDo(todo)
+    }
+
+    MarkCompleted(todo : ToDo): Array<ToDo> {
+
+        return this.ToDoRepo.MarkCompleted(todo)
     }
 
 
