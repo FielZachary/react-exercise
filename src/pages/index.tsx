@@ -9,9 +9,15 @@ import {deleteToDo} from "../app/redux/todo/todo.slice";
 import {editToDo} from "../app/redux/todo/todo.slice";
 import {markCompleted} from "../app/redux/todo/todo.slice";
 import {useAppDispatch, useAppSelector} from "../app/redux/hooks";
+import { useState } from "react";
 import {ToDo} from "../domain/entities/ToDo";
 
 export default function Home() {
+  const [editing, setEditing] = useState(false)
+  const [currentEdit, setCurrentEdit] = useState('')
+  const [valueEdit, setValueEdit] = useState('')
+  const [valueAdd, setValueAdd] = useState('')
+
   const products = useAppSelector((state) => state.products.products)
   const users = useAppSelector((state) => state.users.users)
   const items = useAppSelector((state) => state.items.items)
@@ -23,43 +29,63 @@ export default function Home() {
   }
   const handleSubmit = (e) => {
       e.preventDefault()
-      dispatch(addToDo(new ToDo(valueAdd)))
+      const newToDo = new ToDo(valueAdd)
+      newToDo.isCompleted = false
+      dispatch(addToDo(newToDo))
+      setValueAdd("")
   }
   const handleChange = (e) => {
-      valueAdd = e.target.value
+      setValueAdd(e.target.value)
       console.log(valueAdd)
   }
   const handleDelete = (todo) => {
     dispatch(deleteToDo(todo))
   }
   const handleEditChange = (e) => {
-      valueEdit = e.target.value
+      setValueEdit(e.target.value)
       console.log(valueEdit)
   }
   const handleEditSubmit = (e, todo) => {
       e.preventDefault()
       const newToDo = {...todo, title: valueEdit}
       dispatch(editToDo(newToDo))
+      setCurrentEdit('')
     }
   const handleEditForm = (todo) => {
-      console.log('ht')
       return (
           <div>
               <form onSubmit={(e) => handleEditSubmit(e, todo)}>
                   <p>Edit a to do</p>
-                  <input type={'text'} onChange={handleEditChange}/>
+                  <input
+                      value={valueEdit}
+                      type={'text'}
+                      onChange={handleEditChange}
+                  />
               </form>
           </div>
       )
   }
   const handleComplete = (todo) => {
 
-      const newIsCompleted = !todo.isCompleted
-      const newToDo = {...todo, isCompleted: newIsCompleted}
-      dispatch(markCompleted(newToDo))
+      dispatch(markCompleted(todo))
   }
-  let valueEdit = ""
-  let valueAdd = ""
+  const handleDisplay = (todo) => {
+        if (todo.id !== currentEdit) {
+            if (todo.isCompleted === false ) {
+                return todo.title
+            } else {
+                return (
+                    <s>
+                        {todo.title}
+                    </s>
+                )
+            }
+
+        }
+
+        return handleEditForm(todo)
+  }
+
   return (
       <div>
         <button onClick={handleClick} disabled={loading}>
@@ -68,16 +94,27 @@ export default function Home() {
         <ul>
           {toDo.map((todo) => (
               <li key={todo.id}>
-                  {todo.title}
-                  <button onClick={() => handleDelete(todo)} />
-                  <button onClick={() => handleComplete(todo)} />
-                  {handleEditForm(todo)}
+                  {handleDisplay(todo)}
+                  <button onClick={() => handleDelete(todo)}>
+                      Delete
+                  </button>
+                  <button onClick={() => {
+                      todo.id === currentEdit ? setCurrentEdit('') : setCurrentEdit(todo.id)
+                      setValueEdit(todo.title)
+                  }
+                  }>
+                      Edit
+                  </button>
+                  <button onClick={() => handleComplete(todo)}>
+                      {todo.isCompleted === false ? 'Mark as complete' : 'Unmark as complete'}
+                  </button>
               </li>
           ))}
         </ul>
           <form onSubmit={handleSubmit}>
               <p>Add a to do:</p>
               <input
+                  value={valueAdd}
                   type="text"
                   onChange={handleChange}
               />

@@ -43,7 +43,10 @@ export class ToDoServiceImpl {
 
     MarkCompleted(todo : ToDo): Array<ToDo> {
 
-        return this.ToDoRepo.MarkCompleted(todo)
+        const newIsCompleted = !todo.isCompleted
+        const newToDo = {...todo, isCompleted: newIsCompleted}
+
+        return this.ToDoRepo.MarkCompleted(newToDo)
     }
 
 
