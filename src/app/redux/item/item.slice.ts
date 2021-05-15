@@ -20,7 +20,7 @@ export const fetchList = createAsyncThunk("itemList/fetchList", async () => {
     const itemRepo = new ItemRepositoryImpl()
     const itemService = new ItemServiceImpl(itemRepo)
     const items = await itemService.GetItems()
-    //console.log(items)
+    // console.log(items)
     return items
 })
 export const itemSlice = createSlice({

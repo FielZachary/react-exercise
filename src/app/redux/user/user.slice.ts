@@ -15,7 +15,7 @@ const initialState: CounterState = {
 }
 
 export const fetchUserList = createAsyncThunk("userList/fetchList", async () => {
-    //console.log("hello")
+    // console.log("hello")
     const userRepo = new UserRepoImplement()
     const users = await userRepo.GetUsers()
     return users

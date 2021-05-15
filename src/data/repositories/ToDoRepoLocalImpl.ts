@@ -26,7 +26,7 @@ export class ToDoRepoLocalImpl implements ToDoRepository {
 
     EditToDo(todo: ToDo): Array<ToDo> {
         const oldTodos = this.ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
-        //console.log(todo)
+        // console.log(todo)
         this.ToDoList = [...oldTodos, todo]
         localStorage.setItem("toDoList", JSON.stringify(this.ToDoList))
 
@@ -36,7 +36,7 @@ export class ToDoRepoLocalImpl implements ToDoRepository {
     MarkCompleted(todo: ToDo): Array<ToDo> {
         const oldTodos = this.ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
         this.ToDoList = [...oldTodos, todo]
-        //console.log(this.ToDoList)
+        // console.log(this.ToDoList)
         localStorage.setItem("toDoList", JSON.stringify(this.ToDoList))
 
         return this.ToDoList

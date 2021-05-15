@@ -33,14 +33,14 @@ export default function Home() {
     }
     const handleChange = (e) => {
         setValueAdd(e.target.value)
-        //console.log(valueAdd)
+        // console.log(valueAdd)
     }
     const handleDelete = (todo) => {
         dispatch(deleteToDo(todo))
     }
     const handleEditChange = (e) => {
         setValueEdit(e.target.value)
-        //console.log(valueEdit)
+        // console.log(valueEdit)
     }
     const handleEditSubmit = (e, todo) => {
         e.preventDefault()

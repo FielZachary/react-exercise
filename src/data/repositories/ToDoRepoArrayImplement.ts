@@ -24,7 +24,7 @@ export class ToDoRepoArrayImplement implements ToDoRepository {
 
     EditToDo(todo: ToDo): Array<ToDo> {
         const oldTodos = ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
-        //console.log(todo)
+        // console.log(todo)
         ToDoList = [...oldTodos, todo]
         return ToDoList
     }
@@ -32,7 +32,7 @@ export class ToDoRepoArrayImplement implements ToDoRepository {
     MarkCompleted(todo: ToDo): Array<ToDo> {
         const oldTodos = ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
         ToDoList = [...oldTodos, todo]
-        //console.log(ToDoList)
+        // console.log(ToDoList)
         return ToDoList
     }
 }
