@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useAppDispatch, useAppSelector } from "../app/redux/hooks"
 import { fetchList } from "../app/redux/item/item.slice"
 import { fetchProductList } from "../app/redux/product/product.slice"
-import { addToDo , deleteToDo , editToDo , fetchToDoList , markCompleted } from "../app/redux/todo/todo.slice"
+import { addToDo, deleteToDo, editToDo, fetchToDoList, markCompleted } from "../app/redux/todo/todo.slice"
 import { fetchUserList } from "../app/redux/user/user.slice"
 import { ToDo } from "../domain/entities/ToDo"
 import styles from "../styles/Home.module.css"
@@ -33,14 +33,14 @@ export default function Home() {
     }
     const handleChange = (e) => {
         setValueAdd(e.target.value)
-        console.log(valueAdd)
+        //console.log(valueAdd)
     }
     const handleDelete = (todo) => {
         dispatch(deleteToDo(todo))
     }
     const handleEditChange = (e) => {
         setValueEdit(e.target.value)
-        console.log(valueEdit)
+        //console.log(valueEdit)
     }
     const handleEditSubmit = (e, todo) => {
         e.preventDefault()
@@ -49,13 +49,13 @@ export default function Home() {
         setCurrentEdit("")
     }
     const handleEditForm = (todo) => (
-            <div>
-                <form onSubmit={(e) => handleEditSubmit(e, todo)}>
-                    <p>Edit a to do</p>
-                    <input value={valueEdit} type="text" onChange={handleEditChange} />
-                </form>
-            </div>
-        )
+        <div>
+            <form onSubmit={(e) => handleEditSubmit(e, todo)}>
+                <p>Edit a to do</p>
+                <input value={valueEdit} type="text" onChange={handleEditChange} />
+            </form>
+        </div>
+    )
     const handleComplete = (todo) => {
         dispatch(markCompleted(todo))
     }
@@ -63,9 +63,8 @@ export default function Home() {
         if (todo.id !== currentEdit) {
             if (todo.isCompleted === false) {
                 return todo.title
-            } 
-                return <s>{todo.title}</s>
-            
+            }
+            return <s>{todo.title}</s>
         }
 
         return handleEditForm(todo)

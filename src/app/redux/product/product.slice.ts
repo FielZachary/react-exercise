@@ -24,8 +24,8 @@ export const productSlice = createSlice({
 
     extraReducers: (builder) => {
         builder.addCase(fetchProductList.fulfilled, (state, action) => ({
-                ...state,
-                products: action.payload,
-            }))
+            ...state,
+            products: action.payload,
+        }))
     },
 })

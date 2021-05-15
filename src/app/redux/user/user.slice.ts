@@ -1,4 +1,4 @@
-import { createAsyncThunk,createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 import { UserRepoImplement } from "../../../data/repositories/UserRepoImplement"
 import { User } from "../../../domain/entities/User"
@@ -15,7 +15,7 @@ const initialState: CounterState = {
 }
 
 export const fetchUserList = createAsyncThunk("userList/fetchList", async () => {
-    console.log("hello")
+    //console.log("hello")
     const userRepo = new UserRepoImplement()
     const users = await userRepo.GetUsers()
     return users
@@ -27,17 +27,17 @@ export const userSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchUserList.fulfilled, (state, action) => ({
-                ...state,
-                user: action.payload,
-            }))
+            ...state,
+            user: action.payload,
+        }))
         builder.addCase(fetchUserList.pending, (state) => ({
-                ...state,
-                loading: true,
-            }))
+            ...state,
+            loading: true,
+        }))
         builder.addCase(fetchUserList.rejected, (state) => ({
-                ...state,
-                loading: false,
-            }))
+            ...state,
+            loading: false,
+        }))
     },
 })
 

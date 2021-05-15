@@ -1,4 +1,4 @@
-import { createAsyncThunk,createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { act } from "react-dom/test-utils"
 
 import { ToDoRepoArrayImplement } from "../../../data/repositories/ToDoRepoArrayImplement"
@@ -56,24 +56,24 @@ export const toDoSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchToDoList.fulfilled, (state, action) => ({
-                ...state,
-                toDo: action.payload,
-            }))
+            ...state,
+            toDo: action.payload,
+        }))
         builder.addCase(addToDo.fulfilled, (state, action) => ({
-                ...state,
-                toDo: action.payload,
-            }))
+            ...state,
+            toDo: action.payload,
+        }))
         builder.addCase(deleteToDo.fulfilled, (state, action) => ({
-                ...state,
-                toDo: action.payload,
-            }))
+            ...state,
+            toDo: action.payload,
+        }))
         builder.addCase(editToDo.fulfilled, (state, action) => ({
-                ...state,
-                toDo: action.payload,
-            }))
+            ...state,
+            toDo: action.payload,
+        }))
         builder.addCase(markCompleted.fulfilled, (state, action) => ({
-                ...state,
-                toDo: action.payload,
-            }))
+            ...state,
+            toDo: action.payload,
+        }))
     },
 })
