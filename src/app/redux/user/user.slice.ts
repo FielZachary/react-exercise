@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import type { RootState } from "../store"
 
-import { UserRepoImplement} from "../../../data/repositories/UserRepoImplement";
-import { User } from "../../../domain/entities/User";
+import { UserRepoImplement } from "../../../data/repositories/UserRepoImplement"
+import { User } from "../../../domain/entities/User"
 
 // Define a type for the slice state
 interface CounterState {
@@ -15,7 +15,7 @@ const initialState: CounterState = {
 }
 
 export const fetchUserList = createAsyncThunk("userList/fetchList", async () => {
-    console.log('hello')
+    console.log("hello")
     const userRepo = new UserRepoImplement()
     const users = await userRepo.GetUsers()
     return users

@@ -1,15 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit'
-import {itemSlice} from "./item/item.slice";
-import {userSlice} from "./user/user.slice";
-import {productSlice} from "./product/product.slice";
-import {toDoSlice} from "./todo/todo.slice";
+import { configureStore } from "@reduxjs/toolkit"
+import { itemSlice } from "./item/item.slice"
+import { userSlice } from "./user/user.slice"
+import { productSlice } from "./product/product.slice"
+import { toDoSlice } from "./todo/todo.slice"
 
 export const store = configureStore({
     reducer: {
         products: productSlice.reducer,
         users: userSlice.reducer,
         items: itemSlice.reducer,
-        todo: toDoSlice.reducer
+        todo: toDoSlice.reducer,
     },
 })
 
