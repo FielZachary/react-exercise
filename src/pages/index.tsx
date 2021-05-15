@@ -1,16 +1,13 @@
 import Head from "next/head"
-import styles from "../styles/Home.module.css"
+import { useState } from "react"
+
+import { useAppDispatch, useAppSelector } from "../app/redux/hooks"
 import { fetchList } from "../app/redux/item/item.slice"
 import { fetchProductList } from "../app/redux/product/product.slice"
+import { addToDo , deleteToDo , editToDo , fetchToDoList , markCompleted } from "../app/redux/todo/todo.slice"
 import { fetchUserList } from "../app/redux/user/user.slice"
-import { fetchToDoList } from "../app/redux/todo/todo.slice"
-import { addToDo } from "../app/redux/todo/todo.slice"
-import { deleteToDo } from "../app/redux/todo/todo.slice"
-import { editToDo } from "../app/redux/todo/todo.slice"
-import { markCompleted } from "../app/redux/todo/todo.slice"
-import { useAppDispatch, useAppSelector } from "../app/redux/hooks"
-import { useState } from "react"
 import { ToDo } from "../domain/entities/ToDo"
+import styles from "../styles/Home.module.css"
 
 export default function Home() {
     const [editing, setEditing] = useState(false)
@@ -51,16 +48,14 @@ export default function Home() {
         dispatch(editToDo(newToDo))
         setCurrentEdit("")
     }
-    const handleEditForm = (todo) => {
-        return (
+    const handleEditForm = (todo) => (
             <div>
                 <form onSubmit={(e) => handleEditSubmit(e, todo)}>
                     <p>Edit a to do</p>
-                    <input value={valueEdit} type={"text"} onChange={handleEditChange} />
+                    <input value={valueEdit} type="text" onChange={handleEditChange} />
                 </form>
             </div>
         )
-    }
     const handleComplete = (todo) => {
         dispatch(markCompleted(todo))
     }
@@ -68,9 +63,9 @@ export default function Home() {
         if (todo.id !== currentEdit) {
             if (todo.isCompleted === false) {
                 return todo.title
-            } else {
+            } 
                 return <s>{todo.title}</s>
-            }
+            
         }
 
         return handleEditForm(todo)

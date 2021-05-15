@@ -1,6 +1,7 @@
+import axios from "axios"
+
 import { Product } from "../../domain/entities/Product"
 import { ProductRepository } from "../../domain/repositories/ProductRepository"
-import axios from "axios"
 
 const Axios = axios.create({
     baseURL: "https://reqres.in",
@@ -8,8 +9,11 @@ const Axios = axios.create({
 
 class ProductDTO {
     id: number
+
     name: string
+
     year: number
+
     color: string
 }
 

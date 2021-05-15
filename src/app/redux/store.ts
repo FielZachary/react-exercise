@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit"
+
 import { itemSlice } from "./item/item.slice"
-import { userSlice } from "./user/user.slice"
 import { productSlice } from "./product/product.slice"
 import { toDoSlice } from "./todo/todo.slice"
+import { userSlice } from "./user/user.slice"
 
 export const store = configureStore({
     reducer: {

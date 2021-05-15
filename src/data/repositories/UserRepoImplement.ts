@@ -1,6 +1,7 @@
+import axios from "axios"
+
 import { User } from "../../domain/entities/User"
 import { UserRepository } from "../../domain/repositories/UserRepository"
-import axios from "axios"
 
 const Axios = axios.create({
     baseURL: "https://reqres.in",
@@ -8,8 +9,11 @@ const Axios = axios.create({
 
 class UserDTO {
     id: number
+
     email: string
+
     first_name: string
+
     last_name: string
 }
 

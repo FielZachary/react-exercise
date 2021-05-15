@@ -11,20 +11,24 @@ export class ToDoRepoArrayImplement implements ToDoRepository {
     GetToDo(): Array<ToDo> {
         return ToDoList
     }
+
     AddToDo(todo: ToDo): Array<ToDo> {
         ToDoList = [...ToDoList, todo]
         return ToDoList
     }
+
     DeleteToDo(todo: ToDo): Array<ToDo> {
         ToDoList = ToDoList.filter((filterTodo) => filterTodo.id !== todo.id)
         return ToDoList
     }
+
     EditToDo(todo: ToDo): Array<ToDo> {
         const oldTodos = ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
         console.log(todo)
         ToDoList = [...oldTodos, todo]
         return ToDoList
     }
+
     MarkCompleted(todo: ToDo): Array<ToDo> {
         const oldTodos = ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
         ToDoList = [...oldTodos, todo]

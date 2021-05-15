@@ -1,10 +1,10 @@
-import { ToDoRepoArrayImplement } from "../../../data/repositories/ToDoRepoArrayImplement"
-import { ToDoServiceImpl } from "../../../domain/usecases/ToDoService"
-import { ToDo } from "../../../domain/entities/ToDo"
-import { ToDoRepoLocalImpl } from "../../../data/repositories/ToDoRepoLocalImpl"
-
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createAsyncThunk,createSlice } from "@reduxjs/toolkit"
 import { act } from "react-dom/test-utils"
+
+import { ToDoRepoArrayImplement } from "../../../data/repositories/ToDoRepoArrayImplement"
+import { ToDoRepoLocalImpl } from "../../../data/repositories/ToDoRepoLocalImpl"
+import { ToDo } from "../../../domain/entities/ToDo"
+import { ToDoServiceImpl } from "../../../domain/usecases/ToDoService"
 
 interface CounterState {
     toDo: Array<ToDo>
@@ -55,35 +55,25 @@ export const toDoSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchToDoList.fulfilled, (state, action) => {
-            return {
+        builder.addCase(fetchToDoList.fulfilled, (state, action) => ({
                 ...state,
                 toDo: action.payload,
-            }
-        })
-        builder.addCase(addToDo.fulfilled, (state, action) => {
-            return {
+            }))
+        builder.addCase(addToDo.fulfilled, (state, action) => ({
                 ...state,
                 toDo: action.payload,
-            }
-        })
-        builder.addCase(deleteToDo.fulfilled, (state, action) => {
-            return {
+            }))
+        builder.addCase(deleteToDo.fulfilled, (state, action) => ({
                 ...state,
                 toDo: action.payload,
-            }
-        })
-        builder.addCase(editToDo.fulfilled, (state, action) => {
-            return {
+            }))
+        builder.addCase(editToDo.fulfilled, (state, action) => ({
                 ...state,
                 toDo: action.payload,
-            }
-        })
-        builder.addCase(markCompleted.fulfilled, (state, action) => {
-            return {
+            }))
+        builder.addCase(markCompleted.fulfilled, (state, action) => ({
                 ...state,
                 toDo: action.payload,
-            }
-        })
+            }))
     },
 })

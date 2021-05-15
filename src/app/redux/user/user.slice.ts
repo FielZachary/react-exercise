@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import type { RootState } from "../store"
+import { createAsyncThunk,createSlice } from "@reduxjs/toolkit"
 
 import { UserRepoImplement } from "../../../data/repositories/UserRepoImplement"
 import { User } from "../../../domain/entities/User"
+import type { RootState } from "../store"
 
 // Define a type for the slice state
 interface CounterState {
@@ -26,24 +26,18 @@ export const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchUserList.fulfilled, (state, action) => {
-            return {
+        builder.addCase(fetchUserList.fulfilled, (state, action) => ({
                 ...state,
                 user: action.payload,
-            }
-        })
-        builder.addCase(fetchUserList.pending, (state) => {
-            return {
+            }))
+        builder.addCase(fetchUserList.pending, (state) => ({
                 ...state,
                 loading: true,
-            }
-        })
-        builder.addCase(fetchUserList.rejected, (state) => {
-            return {
+            }))
+        builder.addCase(fetchUserList.rejected, (state) => ({
                 ...state,
                 loading: false,
-            }
-        })
+            }))
     },
 })
 

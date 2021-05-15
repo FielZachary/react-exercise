@@ -1,7 +1,10 @@
 export class Product {
     id: number
+
     name: string
+
     year: number
+
     color: string
 
     constructor(id: number, name: string, year: number, color: string) {
