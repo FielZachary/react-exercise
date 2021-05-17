@@ -1,18 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { act } from "react-dom/test-utils"
 
-import { ToDoRepoArrayImplement } from "../../../data/repositories/ToDoRepoArrayImplement"
-import { ToDoRepoLocalImpl } from "../../../data/repositories/ToDoRepoLocalImpl"
-import { ToDo } from "../../../domain/entities/ToDo"
-import { ToDoServiceImpl } from "../../../domain/usecases/ToDoService"
+import ToDoRepoLocalImpl from "../../../data/repositories/ToDoRepoLocalImpl"
+import ToDo from "../../../domain/entities/ToDo"
+import ToDoServiceImpl from "../../../domain/usecases/ToDoService"
 
 interface CounterState {
     toDo: Array<ToDo>
+    error: any
 }
 
 // Define the initial state using that type
 const initialState: CounterState = {
     toDo: [],
+    error: "",
 }
 
 export const fetchToDoList = createAsyncThunk("toDoList/fetchToDoList", () => {
@@ -32,22 +32,22 @@ export const addToDo = createAsyncThunk("toDoList/addToDo", (todo: ToDo) => {
 export const deleteToDo = createAsyncThunk("toDoList/deleteToDo", (todo: ToDo) => {
     const toDoRepo = new ToDoRepoLocalImpl()
     const toDoService = new ToDoServiceImpl(toDoRepo)
-    const deleteToDo = toDoService.DeleteToDo(todo)
-    return deleteToDo
+    const deleteToDoList = toDoService.DeleteToDo(todo)
+    return deleteToDoList
 })
 
 export const editToDo = createAsyncThunk("toDoList/editToDo", (todo: ToDo) => {
     const toDoRepo = new ToDoRepoLocalImpl()
     const toDoService = new ToDoServiceImpl(toDoRepo)
-    const editToDo = toDoService.EditToDo(todo)
-    return editToDo
+    const editToDoList = toDoService.EditToDo(todo)
+    return editToDoList
 })
 
 export const markCompleted = createAsyncThunk("toDoList/markCompleted", (todo: ToDo) => {
     const toDoRepo = new ToDoRepoLocalImpl()
     const toDoService = new ToDoServiceImpl(toDoRepo)
-    const markCompleted = toDoService.MarkCompleted(todo)
-    return markCompleted
+    const markCompletedList = toDoService.MarkCompleted(todo)
+    return markCompletedList
 })
 
 export const toDoSlice = createSlice({
@@ -62,6 +62,12 @@ export const toDoSlice = createSlice({
         builder.addCase(addToDo.fulfilled, (state, action) => ({
             ...state,
             toDo: action.payload,
+        }))
+        builder.addCase(addToDo.rejected, (state, action) => (
+            console.log(action.payload),
+            {
+            ...state,
+            error: action.payload
         }))
         builder.addCase(deleteToDo.fulfilled, (state, action) => ({
             ...state,

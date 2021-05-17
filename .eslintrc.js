@@ -40,7 +40,7 @@ module.exports = {
     "react/no-did-mount-set-state": "error",
     "react/no-did-update-set-state": "error",
     "react/no-direct-mutation-state": "error",
-    "react/prop-types": "error",
+    "react/prop-types": "off",
     "react/jsx-no-target-blank": "error",
     "no-useless-computed-key": "error",
     "react-hooks/rules-of-hooks": "error",

@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-import { UserRepoImplement } from "../../../data/repositories/UserRepoImplement"
-import { User } from "../../../domain/entities/User"
-import type { RootState } from "../store"
+import UserRepoImplement from "../../../data/repositories/UserRepoImplement"
+import User from "../../../domain/entities/User"
 
 // Define a type for the slice state
 interface CounterState {

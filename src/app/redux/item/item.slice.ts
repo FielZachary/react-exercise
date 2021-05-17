@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-import { ItemRepositoryImpl } from "../../../data/repositories/ItemRepositoryImpl"
-import { Item } from "../../../domain/entities/Item"
-import { ItemServiceImpl } from "../../../domain/usecases/ItemService"
+import ItemRepositoryImpl from "../../../data/repositories/ItemRepositoryImpl"
+import Item from "../../../domain/entities/Item"
+import ItemServiceImpl from "../../../domain/usecases/ItemService"
 import type { RootState } from "../store"
 // Define a type for the slice state
 interface CounterState {

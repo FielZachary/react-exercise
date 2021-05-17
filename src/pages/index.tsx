@@ -1,35 +1,33 @@
-import Head from "next/head"
+import "antd/dist/antd.css" // or 'antd/dist/antd.less'
+
+import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons"
+import { Button, Card, Form, Input } from "antd"
 import { useState } from "react"
 
 import { useAppDispatch, useAppSelector } from "../app/redux/hooks"
-import { fetchList } from "../app/redux/item/item.slice"
-import { fetchProductList } from "../app/redux/product/product.slice"
 import { addToDo, deleteToDo, editToDo, fetchToDoList, markCompleted } from "../app/redux/todo/todo.slice"
-import { fetchUserList } from "../app/redux/user/user.slice"
-import { ToDo } from "../domain/entities/ToDo"
-import styles from "../styles/Home.module.css"
+import ToDo from "../domain/entities/ToDo"
 
 export default function Home() {
-    const [editing, setEditing] = useState(false)
     const [currentEdit, setCurrentEdit] = useState("")
     const [valueEdit, setValueEdit] = useState("")
     const [valueAdd, setValueAdd] = useState("")
 
-    const products = useAppSelector((state) => state.products.products)
-    const users = useAppSelector((state) => state.users.users)
-    const items = useAppSelector((state) => state.items.items)
     const toDo = useAppSelector((state) => state.todo.toDo)
     const loading = useAppSelector((state) => state.items.loading)
     const dispatch = useAppDispatch()
     const handleClick = () => {
         dispatch(fetchToDoList())
     }
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const newToDo = new ToDo(valueAdd)
-        newToDo.isCompleted = false
-        dispatch(addToDo(newToDo))
-        setValueAdd("")
+    const handleSubmit = () => {
+        try {
+            console.log("in handle submit")
+            const newToDo = new ToDo(valueAdd)
+            newToDo.isCompleted = false
+            dispatch(addToDo(newToDo))
+        } catch (e) {
+            console.log("caught")
+        }
     }
     const handleChange = (e) => {
         setValueAdd(e.target.value)
@@ -42,18 +40,18 @@ export default function Home() {
         setValueEdit(e.target.value)
         // console.log(valueEdit)
     }
-    const handleEditSubmit = (e, todo) => {
-        e.preventDefault()
+    const handleEditSubmit = (todo) => {
         const newToDo = { ...todo, title: valueEdit }
         dispatch(editToDo(newToDo))
         setCurrentEdit("")
     }
     const handleEditForm = (todo) => (
         <div>
-            <form onSubmit={(e) => handleEditSubmit(e, todo)}>
+            <Form onFinish={() => handleEditSubmit(todo)}>
                 <p>Edit a to do</p>
-                <input value={valueEdit} type="text" onChange={handleEditChange} />
-            </form>
+                <Input value={valueEdit} type="text" onChange={handleEditChange} />
+            </Form>
+            <br />
         </div>
     )
     const handleComplete = (todo) => {
@@ -61,10 +59,7 @@ export default function Home() {
     }
     const handleDisplay = (todo) => {
         if (todo.id !== currentEdit) {
-            if (todo.isCompleted === false) {
-                return todo.title
-            }
-            return <s>{todo.title}</s>
+            return null
         }
 
         return handleEditForm(todo)
@@ -72,32 +67,61 @@ export default function Home() {
 
     return (
         <div>
-            <button onClick={handleClick} disabled={loading}>
+            <Button onClick={handleClick} disabled={loading}>
                 Refresh
-            </button>
-            <ul>
+            </Button>
+
+            <Card title="Your Todos" style={{ width: 450 }}>
                 {toDo.map((todo) => (
                     <li key={todo.id}>
-                        {handleDisplay(todo)}
-                        <button onClick={() => handleDelete(todo)}>Delete</button>
-                        <button
-                            onClick={() => {
-                                todo.id === currentEdit ? setCurrentEdit("") : setCurrentEdit(todo.id)
-                                setValueEdit(todo.title)
-                            }}
+                        <Card
+                            size="small"
+                            type="inner"
+                            title={todo.isCompleted === false ? todo.title : <s>{todo.title}</s>}
+                            style={{ width: 410 }}
                         >
-                            Edit
-                        </button>
-                        <button onClick={() => handleComplete(todo)}>
-                            {todo.isCompleted === false ? "Mark as complete" : "Unmark as complete"}
-                        </button>
+                            {handleDisplay(todo)}
+                            <Button style={{ margin: 5 }} onClick={() => handleDelete(todo)} icon={<DeleteOutlined />}>
+                                Delete
+                            </Button>
+                            <Button
+                                style={{ margin: 5 }}
+                                icon={<EditOutlined />}
+                                onClick={() => {
+                                    if (todo.id === currentEdit) {
+                                        setCurrentEdit("")
+                                    } else {
+                                        setCurrentEdit(todo.id)
+                                    }
+                                    setValueEdit(todo.title)
+                                    handleEditForm(todo)
+                                }}
+                            >
+                                Edit
+                            </Button>
+                            <Button
+                                style={{ margin: 5 }}
+                                onClick={() => handleComplete(todo)}
+                                icon={todo.isCompleted === false ? <CheckOutlined /> : <CloseOutlined />}
+                            >
+                                {todo.isCompleted === false ? "Mark as complete" : "Unmark as complete"}
+                            </Button>
+                        </Card>
+                        <br />
                     </li>
                 ))}
-            </ul>
-            <form onSubmit={handleSubmit}>
-                <p>Add a to do:</p>
-                <input value={valueAdd} type="text" onChange={handleChange} />
-            </form>
+            </Card>
+
+            <br />
+
+            <Card size="small" style={{ width: 300 }} title="Add a To Do">
+                <Form autoComplete="off" onFinish={handleSubmit}>
+                    <Form.Item label="Title" name="title">
+                        <Input value={valueAdd} type="text" onChange={handleChange} />
+                        {}
+                    </Form.Item>
+                </Form>
+            </Card>
         </div>
     )
 }

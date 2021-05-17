@@ -1,16 +1,16 @@
-export class User {
+export default class User {
     id: number
 
     email: string
 
-    first_name: string
+    firstName: string
 
-    last_name: string
+    lastName: string
 
-    constructor(id: number, email: string, first_name: string, last_name: string) {
+    constructor(id: number, email: string, firstName: string, lastName: string) {
         this.id = id
         this.email = email
-        this.first_name = first_name
-        this.last_name = last_name
+        this.firstName = firstName
+        this.lastName = lastName
     }
 }

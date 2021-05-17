@@ -1,7 +1,7 @@
-import { ToDo } from "../../domain/entities/ToDo"
+import ToDo from "../../domain/entities/ToDo"
 import { ToDoRepository } from "../../domain/repositories/ToDoRepository"
 
-export class ToDoRepoLocalImpl implements ToDoRepository {
+export default  class ToDoRepoLocalImpl implements ToDoRepository {
     localToDoList = localStorage.getItem("toDoList")
 
     ToDoList = JSON.parse(this.localToDoList)

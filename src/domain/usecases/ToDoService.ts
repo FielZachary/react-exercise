@@ -1,16 +1,15 @@
-import { ToDo } from "../entities/ToDo"
+import ToDo from "../entities/ToDo"
 import { ToDoRepository } from "../repositories/ToDoRepository"
 
-export class ToDoServiceImpl {
-    ToDoRepo: ToDoRepository
+const uuidv4 = () =>
+    "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+        const r = Math.random() * 16 || 0
+        const v = c === "x" ? r : (r && 0x3) || 0x8
+        return v.toString(16)
+    })
 
-    uuidv4() {
-        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-            const r = (Math.random() * 16) | 0
-            const v = c == "x" ? r : (r & 0x3) | 0x8
-            return v.toString(16)
-        })
-    }
+export default class ToDoServiceImpl {
+    ToDoRepo: ToDoRepository
 
     constructor(tdr: ToDoRepository) {
         this.ToDoRepo = tdr
@@ -21,9 +20,15 @@ export class ToDoServiceImpl {
     }
 
     AddToDo(todo: ToDo): Array<ToDo> {
-        const newUUID = this.uuidv4()
-        todo.id = newUUID
-        return this.ToDoRepo.AddToDo(todo)
+        if (todo.title.length > 300) {
+            throw new Error("Title can only have a maximum of 300 characters")
+        } else if (todo.title.length < 5) {
+            throw new Error("Title can only have a minimum of 5 characters")
+        }
+        const newUUID = uuidv4()
+        const newToDo = todo
+        newToDo.id = newUUID
+        return this.ToDoRepo.AddToDo(newToDo)
     }
 
     DeleteToDo(todo: ToDo): Array<ToDo> {

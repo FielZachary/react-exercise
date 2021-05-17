@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-import { ProductRepoImplement } from "../../../data/repositories/ProductRepoImplement"
-import { Product } from "../../../domain/entities/Product"
+import ProductRepoImplement from "../../../data/repositories/ProductRepoImplement"
+import Product from "../../../domain/entities/Product"
 
 interface CounterState {
     products: Array<Product>

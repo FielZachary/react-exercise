@@ -1,25 +1,18 @@
 import axios from "axios"
 
-import { Product } from "../../domain/entities/Product"
+import ProductDTO from "../../domain/DTOs/ProductDTO"
+import Product from "../../domain/entities/Product"
 import { ProductRepository } from "../../domain/repositories/ProductRepository"
 
 const Axios = axios.create({
     baseURL: "https://reqres.in",
 })
 
-class ProductDTO {
-    id: number
+export default class ProductRepoImplement implements ProductRepository {
+    jsonUrl = "/api/products"
 
-    name: string
-
-    year: number
-
-    color: string
-}
-
-export class ProductRepoImplement implements ProductRepository {
     async GetProduct(): Promise<Product[]> {
-        const response = await Axios.get("/api/products")
+        const response = await Axios.get(this.jsonUrl)
 
         return response.data.data.map((product: ProductDTO) => ({
             id: product.id,
