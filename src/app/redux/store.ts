@@ -4,6 +4,8 @@ import { itemSlice } from "./item/item.slice"
 import { productSlice } from "./product/product.slice"
 import { toDoSlice } from "./todo/todo.slice"
 import { userSlice } from "./user/user.slice"
+import {firebaseReducer} from "react-redux-firebase";
+import {firestoreReducer} from "redux-firestore";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
         users: userSlice.reducer,
         items: itemSlice.reducer,
         todo: toDoSlice.reducer,
+        firebase: firebaseReducer,
+        firestore: firestoreReducer
     },
 })
 

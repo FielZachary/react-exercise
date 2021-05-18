@@ -15,11 +15,11 @@ export default class ToDoServiceImpl {
         this.ToDoRepo = tdr
     }
 
-    GetToDo(): Array<ToDo> {
+    GetToDo(): Promise<ToDo[]> {
         return this.ToDoRepo.GetToDo()
     }
 
-    AddToDo(todo: ToDo): Array<ToDo> {
+    AddToDo(todo: ToDo): Promise<ToDo[]> {
         if (todo.title.length > 300) {
             throw new Error("Title can only have a maximum of 300 characters")
         } else if (todo.title.length < 5) {
@@ -31,18 +31,24 @@ export default class ToDoServiceImpl {
         return this.ToDoRepo.AddToDo(newToDo)
     }
 
-    DeleteToDo(todo: ToDo): Array<ToDo> {
+    DeleteToDo(todo: ToDo): Promise<ToDo[]> {
         if (todo.isCompleted === false) {
             return this.ToDoRepo.DeleteToDo(todo)
         }
         return this.ToDoRepo.GetToDo()
     }
 
-    EditToDo(todo: ToDo): Array<ToDo> {
+    EditToDo(todo: ToDo): Promise<ToDo[]> {
+        if (todo.title.length > 300) {
+            throw new Error("Title can only have a maximum of 300 characters")
+        } else if (todo.title.length < 5) {
+            throw new Error("Title can only have a minimum of 5 characters")
+        }
+
         return this.ToDoRepo.EditToDo(todo)
     }
 
-    MarkCompleted(todo: ToDo): Array<ToDo> {
+    MarkCompleted(todo: ToDo): Promise<ToDo[]> {
         const newIsCompleted = !todo.isCompleted
         const newToDo = { ...todo, isCompleted: newIsCompleted }
 

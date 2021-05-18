@@ -10,31 +10,43 @@ export default class ToDoRepoArrayImplement implements ToDoRepository {
         { title: "Play", id: "78ef886b-a7ec-4e8e-84c2-f5d050d026bf", isCompleted: false },
     ]
 
-    GetToDo(): Array<ToDo> {
-        return this.ToDoList
+    GetToDo(): Promise<ToDo[]> {
+
+        return new Promise((resolve, reject) => {
+            resolve(this.ToDoList);
+        });
     }
 
-    AddToDo(todo: ToDo): Array<ToDo> {
+
+    AddToDo(todo: ToDo): Promise<ToDo[]> {
         this.ToDoList = [...this.ToDoList, todo]
-        return this.ToDoList
+        return new Promise((resolve, reject) => {
+            resolve(this.ToDoList);
+        });
     }
 
-    DeleteToDo(todo: ToDo): Array<ToDo> {
+    DeleteToDo(todo: ToDo): Promise<ToDo[]> {
         this.ToDoList = this.ToDoList.filter((filterTodo) => filterTodo.id !== todo.id)
-        return this.ToDoList
+        return new Promise((resolve, reject) => {
+            resolve(this.ToDoList);
+        });
     }
 
-    EditToDo(todo: ToDo): Array<ToDo> {
+    EditToDo(todo: ToDo): Promise<ToDo[]> {
         const oldTodos = this.ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
         // console.log(todo)
         this.ToDoList = [...oldTodos, todo]
-        return this.ToDoList
+        return new Promise((resolve, reject) => {
+            resolve(this.ToDoList);
+        });
     }
 
-    MarkCompleted(todo: ToDo): Array<ToDo> {
+    MarkCompleted(todo: ToDo): Promise<ToDo[]> {
         const oldTodos = this.ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
         this.ToDoList = [...oldTodos, todo]
         // console.log(ToDoList)
-        return this.ToDoList
+        return new Promise((resolve, reject) => {
+            resolve(this.ToDoList);
+        });
     }
 }

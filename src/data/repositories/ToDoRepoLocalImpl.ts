@@ -6,25 +6,25 @@ export default  class ToDoRepoLocalImpl implements ToDoRepository {
 
     ToDoList = JSON.parse(this.localToDoList)
 
-    GetToDo(): Array<ToDo> {
+    GetToDo(): Promise<ToDo[]> {
         return this.ToDoList
     }
 
-    AddToDo(todo: ToDo): Array<ToDo> {
+    AddToDo(todo: ToDo): Promise<ToDo[]> {
         this.ToDoList = [...this.ToDoList, todo]
         localStorage.setItem("toDoList", JSON.stringify(this.ToDoList))
 
         return this.ToDoList
     }
 
-    DeleteToDo(todo: ToDo): Array<ToDo> {
+    DeleteToDo(todo: ToDo): Promise<ToDo[]> {
         this.ToDoList = this.ToDoList.filter((filterTodo) => filterTodo.id !== todo.id)
         localStorage.setItem("toDoList", JSON.stringify(this.ToDoList))
 
         return this.ToDoList
     }
 
-    EditToDo(todo: ToDo): Array<ToDo> {
+    EditToDo(todo: ToDo): Promise<ToDo[]> {
         const oldTodos = this.ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
         // console.log(todo)
         this.ToDoList = [...oldTodos, todo]
@@ -33,7 +33,7 @@ export default  class ToDoRepoLocalImpl implements ToDoRepository {
         return this.ToDoList
     }
 
-    MarkCompleted(todo: ToDo): Array<ToDo> {
+    MarkCompleted(todo: ToDo): Promise<ToDo[]> {
         const oldTodos = this.ToDoList.filter((existingTodo) => existingTodo.id !== todo.id)
         this.ToDoList = [...oldTodos, todo]
         // console.log(this.ToDoList)
