@@ -3,8 +3,9 @@ import "antd/dist/antd.css" // or 'antd/dist/antd.less'
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import {firebaseReducer} from "react-redux-firebase";
-import {firestoreReducer} from "redux-firestore";
+
+import { useRouter } from "next/router";
+
 
 import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { Button, Card, Form, Input, message } from "antd"
@@ -31,12 +32,17 @@ if (!firebase.apps.length) {
 
 const db=firebase.firestore();
 
-
-
-
-export { db }
+export { db, firebase }
 
 export default function Home() {
+
+    const router = useRouter()
+
+    useEffect(() => {
+
+        router.push('/landing')
+    })
+
     const [currentEdit, setCurrentEdit] = useState("")
     const [valueEdit, setValueEdit] = useState("")
     const [valueAdd, setValueAdd] = useState("")

@@ -48,7 +48,7 @@ export default class ToDoServiceImpl {
         return this.ToDoRepo.EditToDo(todo)
     }
 
-    MarkCompleted(todo: ToDo): Promise<ToDo[]> {
+    MarkCompleted(todo: ToDo): Promise<ToDo[]>  {
         const newIsCompleted = !todo.isCompleted
         const newToDo = { ...todo, isCompleted: newIsCompleted }
 
