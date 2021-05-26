@@ -1,46 +1,87 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-import UserRepoImplement from "../../../data/repositories/UserRepoImplement"
+import UserRepositoryImpl from "../../../data/repositories/UserRepositoryImpl"
 import User from "../../../domain/entities/User"
+import UserService from "../../../domain/usecases/UserService"
+
+// These two lines make the User property of password optional
+type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+type UserState = PartialBy<User, "password">
 
 // Define a type for the slice state
 interface CounterState {
-    users: Array<User>
+    User: UserState
+    loading: boolean
 }
 
 // Define the initial state using that type
 const initialState: CounterState = {
-    users: [],
+    User: { uid: "", email: "", isSignedIn: null },
+    loading: false,
 }
 
-export const fetchUserList = createAsyncThunk("userList/fetchList", async () => {
-    // console.log("hello")
-    const userRepo = new UserRepoImplement()
-    const users = await userRepo.GetUsers()
-    return users
+export const signIn = createAsyncThunk("user/signIn", (currentUser: User) => {
+    const userRepo = new UserRepositoryImpl()
+    const userService = new UserService(userRepo)
+    const user = userService.SignIn(currentUser)
+    return user
 })
+
+export const register = createAsyncThunk("user/register", (currentUser: User) => {
+    const userRepo = new UserRepositoryImpl()
+    const userService = new UserService(userRepo)
+    const user = userService.Register(currentUser)
+    return user
+})
+
+export const logOut = createAsyncThunk("user/logOut", () => {
+    const userRepo = new UserRepositoryImpl()
+    const userService = new UserService(userRepo)
+    const user = userService.LogOut()
+    return user
+})
+
+export const onAuthStateChange = createAsyncThunk("user/onAuthStateChange", (currentUser: User) => {
+    const userRepo = new UserRepositoryImpl()
+    const userService = new UserService(userRepo)
+    const user = userService.onAuthStateChange(currentUser)
+    return user
+})
+
+export const CleanState = createAsyncThunk("user/CleanState", () => {
+    const userRepo = new UserRepositoryImpl()
+    const userService = new UserService(userRepo)
+    const user = userService.CleanState()
+    return user
+})
+
+export const setLoading = createAsyncThunk("user/setLoading", (value: boolean) => value)
+
 export const userSlice = createSlice({
-    name: "userList",
+    name: "user",
     // `createSlice` will infer the state type from the `initialState` argument
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchUserList.fulfilled, (state, action) => ({
+        builder.addCase(signIn.fulfilled, (state, action) => ({
             ...state,
-            user: action.payload,
+            User: action.payload,
         }))
-        builder.addCase(fetchUserList.pending, (state) => ({
+        builder.addCase(register.fulfilled, (state, action) => ({
             ...state,
-            loading: true,
+            User: action.payload,
         }))
-        builder.addCase(fetchUserList.rejected, (state) => ({
+        builder.addCase(onAuthStateChange.fulfilled, (state, action) => ({
             ...state,
-            loading: false,
+            User: action.payload,
+        }))
+        builder.addCase(CleanState.fulfilled, (state, action) => ({
+            ...state,
+            User: action.payload,
+        }))
+        builder.addCase(setLoading.fulfilled, (state, action) => ({
+            ...state,
+            loading: action.payload,
         }))
     },
 })
-
-// // Other code such as selectors can use the imported `RootState` type
-// export const items = (state: RootState) => state.items.items
-//
-// export default itemSlice.reducer

@@ -1,16 +1,14 @@
 export default class User {
-    id: number
+    uid: string
 
     email: string
 
-    firstName: string
+    isSignedIn: boolean
 
-    lastName: string
+    password: string
 
-    constructor(id: number, email: string, firstName: string, lastName: string) {
-        this.id = id
+    constructor(email: string, isSignedIn: boolean) {
         this.email = email
-        this.firstName = firstName
-        this.lastName = lastName
+        this.isSignedIn = isSignedIn
     }
 }

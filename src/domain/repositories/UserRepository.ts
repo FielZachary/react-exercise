@@ -1,5 +1,9 @@
 import User from "../entities/User"
 
 export interface UserRepository {
-    GetUsers(): Promise<User>
+    SignIn(user: User): Promise<User>
+    Register(user: User): Promise<User>
+    LogOut(): User
+    onAuthStateChange(user: User): User
+    CleanState(): User
 }
