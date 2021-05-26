@@ -18,15 +18,11 @@ import { useRouter } from "next/router"
 import { useAppDispatch, useAppSelector } from "../app/redux/hooks"
 import { logOut, setLoading } from "../app/redux/user/user.slice"
 
-
 const { SubMenu } = Menu
 const { Header, Content, Sider } = Layout
 
 const { confirm } = Modal
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
-
-import { fetchList } from "../app/redux/item/item.slice"
-import Logout from "./logout"
 
 export default function Home() {
     const user = useAppSelector((state) => state.users.User)
@@ -81,7 +77,7 @@ export default function Home() {
             <Layout>
                 <Header className="header">
                     <div className="logo" />
-                    <Menu theme={"dark"} mode="horizontal">
+                    <Menu theme="dark" mode="horizontal">
                         <Menu.Item onClick={onDashboardButtonClick} key="mail" icon={<DashboardOutlined />}>
                             Dashboard
                         </Menu.Item>
@@ -158,7 +154,6 @@ export default function Home() {
             </Layout>
             ,
         </Spin>
-
     )
 }
 

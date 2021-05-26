@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 ########  ####### ######## ######## ######## ######### ######## #######
 # Title: ConsoleAway
 # Version: 0.9b
@@ -93,15 +92,13 @@ function SingleFile {
 
 function RecursiveFolder {
 	ValidationsFolder $1
-	for f in $(find $1 -name '*.ts' -or -name '*.jsx' -or -name '*.js' -or -name '*.coffee' -or -name '*.tsx'); do
+	for f in $(find $1 -name '*.ts' -or -name '*.jsx' -or -name '*.js' -or -name '*.coffee'); do
 		echo 'Processing File -> '$f
 		if [[ $f == *.js ]]; then
 			ProcessJs $f
 		elif [[ $f == *.coffee ]]; then
 			ProcessCoffee $f
 		elif [[ $f == *.ts ]]; then
-			ProcessJs $f
-		elif [[ $f == *.tsx ]]; then
 			ProcessJs $f
 		elif [[ $f == *.jsx ]]; then
 			ProcessJs $f

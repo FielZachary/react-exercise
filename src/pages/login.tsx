@@ -59,11 +59,11 @@ export default function Login() {
                         onFinishFailed={onFinishFailed}
                     >
                         <Form.Item name="email" rules={[{ required: true, message: "Please input your email!" }]}>
-                            <Input placeholder={"Email"} style={{ width: 300 }} />
+                            <Input placeholder="Email" style={{ width: 300 }} />
                         </Form.Item>
 
                         <Form.Item name="password" rules={[{ required: true, message: "Please input your password!" }]}>
-                            <Input.Password placeholder={"Password"} style={{ width: 300 }} />
+                            <Input.Password placeholder="Password" style={{ width: 300 }} />
                         </Form.Item>
 
                         <Form.Item name="remember" valuePropName="checked">

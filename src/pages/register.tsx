@@ -56,19 +56,19 @@ export default function Register() {
                         onFinishFailed={onFinishFailed}
                     >
                         <Form.Item
-                            label={"Email"}
+                            label="Email"
                             name="email"
                             rules={[{ required: true, message: "Please input your email!" }]}
                         >
-                            <Input placeholder={"Use a valid email"} style={{ width: 300 }} />
+                            <Input placeholder="Use a valid email" style={{ width: 300 }} />
                         </Form.Item>
 
                         <Form.Item
-                            label={"Password"}
+                            label="Password"
                             name="password"
                             rules={[{ required: true, message: "Please input your password!" }]}
                         >
-                            <Input.Password placeholder={"At least 5 characters"} style={{ width: 300 }} />
+                            <Input.Password placeholder="At least 5 characters" style={{ width: 300 }} />
                         </Form.Item>
 
                         <Form.Item {...tailLayout}>

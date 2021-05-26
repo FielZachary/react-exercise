@@ -65,7 +65,7 @@ function MyApp({ Component, pageProps }) {
                 dispatch(CleanState())
             }
         })
-    }, [])
+    })
 
     return <Component {...pageProps} />
 }

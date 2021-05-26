@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "kahero-staging"
+  },
+  "targets": {
+    "kahero-staging": {
+      "hosting": {
+        "franchise-kahero-staging": [
+          "franchise-kahero-staging"
+        ]
+      }
+    }
+  }
+}
