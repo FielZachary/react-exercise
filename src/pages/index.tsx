@@ -50,8 +50,7 @@ export default function Home() {
     }
 
     const onDashboardButtonClick = () => {
-        alert("on dashboard button click")
-        if (user.isSignedIn === false && null) {
+        if (user.isSignedIn === false || null) {
             message.error("You must be logged in to go into your dashboard")
         } else if (user.isSignedIn === true) {
             dispatch(setLoading(true))
@@ -60,8 +59,7 @@ export default function Home() {
     }
 
     const onAuthButtonClick = () => {
-        alert("on auth button click")
-        if (user.isSignedIn === false && null) {
+        if (user.isSignedIn === false || null) {
             dispatch(setLoading(true))
             redirectPage("/login")
         } else if (user.isSignedIn === true) {
