@@ -2,7 +2,6 @@
   "name": "react_next_js_clean_architecture",
   "version": "0.1.0",
   "private": true,
-  "main": "function.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
